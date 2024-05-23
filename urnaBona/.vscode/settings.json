@@ -1,0 +1,37 @@
+{
+    "liveServer.settings.port": 5501
+}
+
+
+
+function corrige() {
+    
+    comecarEtapa(); // Reinicia a etapa atual
+}
+
+function confirma() {
+    let etapa = etapas[etapaAtual]; // Seleciona a etapa atual
+    let votoConfirmado = false; // Inicializa a variável de confirmação do voto
+
+    if (votoBranco) { // Verifica se o voto é em branco
+        votoConfirmado = true; // Confirma o voto
+        votos.push({ etapa: etapa.titulo, voto: 'branco' }); // Adiciona o voto em branco à lista de votos
+        console.log("Confirmando como BRANCO..."); // Log de confirmação
+    } else if (numero.length === etapa.numeros) { // Verifica se o número digitado tem a quantidade correta de dígitos
+        votoConfirmado = true; // Confirma o voto
+        votos.push({ etapa: etapa.titulo, voto: numero }); // Adiciona o voto à lista de votos
+        console.log("Confirmando como " + numero); // Log de confirmação
+    }
+
+    if (votoConfirmado) { // Se o voto foi confirmado
+        etapaAtual++; // Avança para a próxima etapa
+        if (etapas[etapaAtual] !== undefined) {
+            comecarEtapa(); // Inicia a próxima etapa
+        } else {
+            document.querySelector('.tela').innerHTML = '<div class="aviso--gigante pisca">FIM.</div>'; // Exibe mensagem de fim
+            console.log(votos); // Log da lista de votos
+        }
+    }
+}
+
+comecarEtapa(); // Inicia a primeira etapa
